@@ -1,0 +1,460 @@
+/* ========================================
+   RESET & BASE STYLES
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   LAYOUT COMPONENTS
+   ======================================== */
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 15px;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+header h1 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* ========================================
+   STATUS SECTION
+   ======================================== */
+
+.status {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.status div {
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    padding: 5px 0;
+}
+
+.status div:last-child {
+    margin-bottom: 0;
+}
+
+.warning-message {
+    color: #e74c3c;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* ========================================
+   COMPASS COMPONENTS
+   ======================================== */
+
+.compass {
+    background: #e8ecff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.compass-circle {
+    width: calc(100vw - 40px);
+    height: calc(100vw - 40px);
+    max-width: 290px;
+    max-height: 290px;
+    border: 3px solid #667eea;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    background: radial-gradient(circle, #f8f9ff 0%, #e8ecff 100%);
+}
+
+.compass-directions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.direction {
+    position: absolute;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #667eea;
+}
+
+.direction.north {
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.direction.east {
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.direction.south {
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.direction.west {
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* ========================================
+   COMPASS LINES & LANDMARKS
+   ======================================== */
+
+.compass-line {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 2px;
+    height: calc(50% - 15px);
+    background: #999eff;
+    transform-origin: bottom center;
+    transform: translateX(-50%) rotate(0deg);
+    border-radius: 1px;
+    display: none;
+    z-index: 1;
+}
+
+.compass-line.visible {
+    display: flex;
+}
+
+.line-distance {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) rotate(-90deg);
+    background: #e8ecff;
+    color: #999eff;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    white-space: nowrap;
+    pointer-events: none;
+    border: 2px solid #999eff;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.compass-line.visible .line-distance {
+    opacity: 1;
+}
+
+.compass-landmark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.compass-landmark.visible {
+    display: flex;
+}
+
+.compass-landmark.visible img {
+    transform-origin: center bottom;
+    animation: landmarkHeightAnimation 0.5s ease-out forwards;
+}
+
+.compass-landmark img {
+    object-fit: cover;
+}
+
+/* ========================================
+   LOADING & ANIMATIONS
+   ======================================== */
+
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.loading-spinner.show {
+    display: flex;
+}
+
+.spinner-ring {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(102, 126, 234, 0.2);
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+.spinner-text {
+    font-size: 0.8rem;
+    color: #667eea;
+    font-weight: bold;
+    text-align: center;
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
+}
+
+/* Keyframe Animations */
+@keyframes landmarkHeightAnimation {
+    0% {
+        scale: 1 0;
+    }
+    40% {
+        scale: 1 1.2;
+    }
+    70% {
+        scale: 1 0.9;
+    }
+    100% {
+        scale: 1 1;
+    }
+}
+
+@keyframes distanceSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========================================
+   BUTTONS & CONTROLS
+   ======================================== */
+
+#refresh-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+#refresh-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+#refresh-btn:active {
+    transform: translateY(0);
+}
+
+#github-div {
+    width: 100%;
+    padding: 20px;
+    border: none;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+#github-link {
+    color: #69f;
+}
+
+/* ========================================
+   MODAL COMPONENTS
+   ======================================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-content h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.modal-content p {
+    color: #333;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+#sensor-permission-description {
+    line-height: 1.5;
+}
+
+.privacy-details {
+    background: rgba(102, 126, 234, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    border-left: 4px solid #667eea;
+    list-style: none;
+    text-align: left;
+}
+
+.privacy-details li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.privacy-details li:last-child {
+    margin-bottom: 0;
+}
+
+.privacy-details li::before {
+    content: "•";
+    color: #667eea;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    justify-content: center;
+}
+
+.modal-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 100px;
+}
+
+.modal-btn.cancel {
+    background: #f1f2f6;
+    color: #666;
+    border: 2px solid #ddd;
+}
+
+.modal-btn.cancel:hover {
+    background: #e8e9ed;
+    border-color: #bbb;
+}
+
+.modal-btn.ok {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.modal-btn.ok:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.modal-btn:active {
+    transform: translateY(0);
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="a web-based compass application that shows the direction to famous landmarks in Tokyo from your current location.">
+    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+        
+    <title>Landmark Compass Tokyo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts/i18n.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/debounce-manager.js"></script>
+    <script src="scripts/dom-cache.js"></script>
+    <script src="scripts/state-manager.js"></script>
+    <script src="scripts/location-compass-service.js"></script>
+    <script src="scripts/calculations.js"></script>
+    <script src="scripts/landmark-renderer.js"></script>
+    <script src="scripts/ui-controller.js"></script>
+    <script src="scripts/app.js"></script>
+</head>
+<body>
+    <div id="sensor-permission-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="sensor-permission-title"></h3>
+            <p id="sensor-permission-description"></p>
+            <ul class="privacy-details">
+                <li id="privacy-detail-1"></li>
+                <li id="privacy-detail-2"></li>
+                <li id="privacy-detail-3"></li>
+                <li id="privacy-detail-4"></li>
+            </ul>
+            <div class="modal-buttons">
+                <button id="cancel-btn" class="modal-btn cancel"></button>
+                <button id="ok-btn" class="modal-btn ok"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1></h1>
+            <p></p>
+            <p></p>
+        </header>
+
+        <div class="status">
+            <div id="location-status"></div>
+            <div id="compass-status"></div>
+        </div>
+
+        <div class="compass">
+            <div class="compass-circle">
+                <div class="compass-directions">
+                    <div class="direction north"></div>
+                    <div class="direction east"></div>
+                    <div class="direction south"></div>
+                    <div class="direction west"></div>
+                </div>
+                <div class="loading-spinner" id="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-text"></div>
+                </div>
+            </div>
+        </div>
+
+        <button id="refresh-btn" onclick="refreshLocation()"></button>
+
+        <div id="github-div"><a id="github-link" href="https://github.com/cubic9com/LandmarkCompassTokyo"></a></div>
+    </div>
+
+</body>
+</html>
