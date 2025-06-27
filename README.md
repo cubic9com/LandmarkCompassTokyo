@@ -24,6 +24,15 @@ But wait — you can also copy this project, swap out the landmarks with ones fr
 
 ![LandmarkCompassTokyo.png](LandmarkCompassTokyo.png)
 
+# Demo Site / デモサイト
+
+You can try the demo site here: [https://cubic9.com/app/LandmarkCompassTokyo/](https://cubic9.com/app/LandmarkCompassTokyo/)
+
+\[日本語\]
+
+こちらでデモをご覧いただけます: [https://cubic9.com/app/LandmarkCompassTokyo/](https://cubic9.com/app/LandmarkCompassTokyo/)
+
+
 # Requirements / 動作条件
 
 ## Privacy & Permissions / プライバシーと許可
