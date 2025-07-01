@@ -33,7 +33,7 @@ const LocationCompassService = {
                 let errorMessage = getText('locationError');
                 switch(error.code) {
                     case error.PERMISSION_DENIED:
-                        errorMessage += getText('locationDenied');
+                        errorMessage += getText('locationPermissionDenied');
                         break;
                     case error.POSITION_UNAVAILABLE:
                         errorMessage += getText('locationUnavailable');
@@ -45,6 +45,7 @@ const LocationCompassService = {
                         errorMessage += getText('locationUnknownError');
                         break;
                 }
+                errorMessage += getText('locationRecommendDefaultBrowser')
                 UIController.updateStatus('location-status', errorMessage);
                 UIController.hideLoadingSpinner();
             },

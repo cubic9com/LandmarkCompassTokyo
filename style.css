@@ -44,6 +44,11 @@ header p {
     opacity: 0.9;
 }
 
+header p#note {
+    font-size: 0.6rem;
+    margin-top: 0.5rem;
+}
+
 /* ========================================
    STATUS SECTION
    ======================================== */

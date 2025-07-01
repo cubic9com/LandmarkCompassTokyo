@@ -4,6 +4,7 @@ const translations = {
         title: "Landmark Compass Tokyo",
         subtitle: "Shows directions to landmarks in Tokyo",
         description: "Try this when you go up to a high place in Tokyo",
+        note: "Note: Use device's default browser, not the in-app browser",
         north: "N",
         east: "E",
         south: "S",
@@ -15,9 +16,11 @@ const translations = {
         locationError: "❌ Failed to get location: ",
         locationNotSupported: "❌ Geolocation is not supported",
         locationDenied: "❌ Location access denied",
+        locationPermissionDenied: "The page didn't have the permission to get location",
         locationUnavailable: "Location unavailable",
         locationTimeout: "Request timed out",
         locationUnknownError: "Unknown error",
+        locationRecommendDefaultBrowser: ", Try opening this page in your device's default browser",
         compassSuccess: "✅ Compass sensor available",
         compassDenied: "❌ Compass sensor access denied",
         compassPermissionError: "❌ Failed to get compass permission",
@@ -41,6 +44,7 @@ const translations = {
         title: "Landmark Compass Tokyo",
         subtitle: "東京の各ランドマークの方角を表示します",
         description: "東京で高いところに登ったら、使ってみてください",
+        note: "※ アプリ内ブラウザではなく、デバイスのデフォルトブラウザをご利用ください",
         north: "北",
         east: "東",
         south: "南",
@@ -52,9 +56,11 @@ const translations = {
         locationError: "❌ 位置情報の取得に失敗: ",
         locationNotSupported: "❌ 位置情報がサポートされていません",
         locationDenied: "❌ 位置情報の使用が拒否されました",
+        locationPermissionDenied: "ページが位置情報の利用許可を得ていません",
         locationUnavailable: "位置情報が利用できません",
         locationTimeout: "タイムアウトしました",
         locationUnknownError: "不明なエラー",
+        locationRecommendDefaultBrowser: ", デバイスのデフォルトブラウザで開いてみてください",
         compassSuccess: "✅ 方位センサーが利用可能です",
         compassDenied: "❌ 方位センサーの使用が拒否されました",
         compassPermissionError: "❌ 方位センサーの許可取得に失敗",
@@ -102,12 +108,15 @@ function updatePageTexts() {
     const h1 = document.querySelector('header h1');
     if (h1) h1.textContent = `🗼 ${getText('title')} 🗼`;
     
-    const subtitleP = document.querySelector('header p:first-of-type');
+    const subtitleP = document.getElementById('subtitle');
     if (subtitleP) subtitleP.textContent = getText('subtitle');
     
-    const descriptionP = document.querySelector('header p:last-of-type');
+    const descriptionP = document.getElementById('description');
     if (descriptionP) descriptionP.textContent = getText('description');
     
+    const noteP = document.getElementById('note');
+    if (noteP) noteP.textContent = getText('note');
+
     // Direction display
     const northEl = document.querySelector('.direction.north');
     if (northEl) northEl.textContent = getText('north');
