@@ -159,6 +159,14 @@ document.addEventListener('DOMContentLoaded', function() {
     AppController.initialize();
 });
 
+// Invalidate cached size values on resize so they are re-read after layout changes.
+// Throttled to avoid excessive calls during continuous resize events.
+window.addEventListener('resize', function() {
+    DebounceManager.throttle('resize', () => {
+        DOMCache.invalidateSizeCache();
+    }, 200);
+});
+
 // Stop watchPosition, clear debounce timers, and clean up DOM cache when leaving the page
 window.addEventListener('beforeunload', function() {
     if (AppState.location.watchId !== null) {

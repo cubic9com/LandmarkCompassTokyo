@@ -44,7 +44,11 @@ const DOMCache = {
     // Dynamic landmark elements cache
     landmarks: new Map(),
     lines: new Map(),
-    
+
+    // Cached size values to avoid repeated layout reads (reflow)
+    compassSize: null,
+    landmarkImageSizes: new Map(), // { landmarkId -> { width, height } }
+
     // Cache initialization state
     initialized: false,
     
@@ -121,11 +125,61 @@ const DOMCache = {
     },
     
     /**
+     * Read and cache the compass circle size.
+     * Call once after initialization, and again on window resize.
+     */
+    cacheCompassSize() {
+        if (this.compassCircle) {
+            this.compassSize = this.compassCircle.offsetWidth;
+        }
+    },
+
+    /**
+     * Read and cache the image dimensions of a landmark element.
+     * Call once after the landmark images are rendered.
+     * @param {string} landmarkId - The landmark identifier
+     */
+    cacheLandmarkImageSize(landmarkId) {
+        const landmarkElement = this.getLandmarkElement(landmarkId);
+        if (landmarkElement) {
+            const imgElement = landmarkElement.querySelector('img');
+            if (imgElement && imgElement.offsetWidth > 0) {
+                this.landmarkImageSizes.set(landmarkId, {
+                    width: imgElement.offsetWidth,
+                    height: imgElement.offsetHeight
+                });
+            }
+        }
+    },
+
+    /**
+     * Get cached image size for a landmark.
+     * @param {string} landmarkId - The landmark identifier
+     * @returns {{ width: number, height: number } | null}
+     */
+    getLandmarkImageSize(landmarkId) {
+        if (!this.landmarkImageSizes.has(landmarkId)) {
+            this.cacheLandmarkImageSize(landmarkId);
+        }
+        return this.landmarkImageSizes.get(landmarkId) || null;
+    },
+
+    /**
+     * Invalidate all size caches (call on window resize / orientation change).
+     */
+    invalidateSizeCache() {
+        this.compassSize = null;
+        this.landmarkImageSizes.clear();
+    },
+
+    /**
      * Clear all cached references (useful for cleanup)
      */
     clear() {
         this.landmarks.clear();
         this.lines.clear();
+        this.landmarkImageSizes.clear();
+        this.compassSize = null;
         this.initialized = false;
     }
 };

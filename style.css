@@ -157,6 +157,7 @@ header p#note {
     border-radius: 1px;
     display: none;
     z-index: 1;
+    will-change: transform; /* Promote to GPU compositing layer for smoother rotation */
 }
 
 .compass-line.visible {
@@ -194,6 +195,7 @@ header p#note {
     align-items: center;
     justify-content: center;
     z-index: 10;
+    will-change: transform; /* Promote to GPU compositing layer for smoother positioning */
 }
 
 .compass-landmark.visible {
